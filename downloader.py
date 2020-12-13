@@ -17,3 +17,19 @@ class Downloader:
         self.bitfield_lock = threading.Lock()
         self.file_lock = threading.Lock()
 
+   #TODO - STEPS
+    # 1- find the uploader
+    # 2- request pieces from the uploader
+    # 3- receive blocks
+
+    # FILE_MANAGER:
+        # 1- put them into a piece (8 blocks for ech piece)
+        # 2- put pieces into a file
+
+
+#     Ok let me explain:
+# 1.	Once you receive a block (assuming it does not complete the piece) , create a pointer Hash_of(hash_info + piece_index + block_index)
+# 2.	Put the block in the blocks file using this order: hash + delimiter + block_data
+# 3.	repeat steps 1 && 2 until you receive a block that complete one piece (see bitfield)
+# 4.	Call pointers = get_pointers(hash_info, piece_index) to get the pointers (hashes) of all the blocks for that piece.
+# 5.	go to the blocks file and extract all the blocks that match with those hashes
