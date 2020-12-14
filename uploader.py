@@ -44,25 +44,31 @@ class Uploader:
 
 # uploader needs to call the file manager
 
-# uploading_bitfield is sending your bitfield to all the other peers in the network
-# downloading_bitfield used to download the file for P2 and putting it into persistent storage (blocks.txt)
+# self.uploader_bitfield is sending your bitfield to all the other peers in the network
+# self.downloader_bitfield used to download the file for P2 and putting it into persistent storage
 
 # Implementation:
-# 1. Listen for request from Peer 2 (peer trying to download file)
+# 1. Upload bitfield and send it to all the other peers in the network.
+#          - The uploader needs access to the bitfield of other peers because it needs
+#           to make sure that the block P2 is requesting is not being requested twice.
+#
+# 2. Listen for requests  <from Peer 2 (peer trying to download file)>
 #       a) interested (1)
 #       b) not interested (0)
 #
-# 2. If interested -> send response with
+# 3. If interested -> send response with
 #       a) un-choke (1) <permission to download>
 #       b) choke (0) <download not permitted>
 #    else -> continue listening
 #
-# 3. Now listen for next request from Peer 2
+# 4. Now listen for next request from Peer 2
 #
-# 4. Forward request to download from Peer 2 to File Manager
+# 5. Forward request to download from Peer 2 to File Manager
 #       -> Request will contain a piece and a block
-#       -> send downloader bitfield
+#       -> send downloader_bitfield
 #
+# 6. After the last block of the piece is sent to P2, others peers needs
+#    to know that P2 completed the piece.
 
 # Notes: Need to add code into the client.py so that uploader and client
-# of P2 can have this communication
+# of P2 can have this communication?
