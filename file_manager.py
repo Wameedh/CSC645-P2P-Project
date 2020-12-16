@@ -13,7 +13,6 @@ class FileManager:
 
     def __init__(self, torrent, peer_id):
         """
-
         :param torrent: The torrent object
         :param peer_id:
         """
