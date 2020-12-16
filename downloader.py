@@ -22,6 +22,28 @@ class Downloader:
     # 2- request pieces from the uploader
     # 3- receive blocks
 
+    #TODO -
+    # Downloader requests a block
+    def send_request(self):
+
+
+
+
+
+    # Call the file manager to save blocks
+    def get_blocks(self):
+
+
+
+    # Hash the peice
+
+
+    # compare the hash with the one on the torrent file
+
+
+    # send acknowledge
+
+
     # FILE_MANAGER:
         # 1- put them into a piece (8 blocks for ech piece)
         # 2- put pieces into a file
