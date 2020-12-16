@@ -6,6 +6,8 @@
 from server import Server
 from threading import Thread
 from client import Client
+from tracker import Tracker
+from torrent import *  # assumes that your Torrent file is in this folder
 import uuid
 
 
@@ -15,7 +17,7 @@ class Peer(Server):
     Once the connection is created downloading data is done in similar way as in TCP assigment.
     """
 
-    SERVER_PORT = 4998
+    SERVER_PORT = 5000
     CLIENT_MIN_PORT_RANGE = 5001
     CLIENT_MAX_PORT_RANGE = 5010
 
@@ -33,16 +35,23 @@ class Peer(Server):
         :param server_ip_address: used when need to use the ip assigned by LAN
         """
         Server.__init__(self, server_ip_address, self.SERVER_PORT)  # inherits methods from the server
+
         self.server_ip_address = server_ip_address
         self.id = uuid.uuid4()  # creates unique id for the peer
         self.role = role
+        self.torrent = Torrent("age.torrent")
+        self.tracker = Tracker(self, self.torrent)
+
 
     def run_server(self):
         """
         Already implemented. puts this peer to listen for connections requests from other peers
         :return: VOID
         """
+        data = {'ip': self.server_ip_address, 'port': self.SERVER_PORT}
         try:
+            self.tracker.broadcast()
+            self.tracker.broadcast_listener()
             # must thread the server, otherwise it will block the main thread
             Thread(target=self.run, daemon=False).start()
         except Exception as error:
@@ -107,7 +116,7 @@ class Peer(Server):
 
 
 # testing
-peer = Peer(role='peer')
+peer = Peer(role='seeder')
 print("Peer: " + str(peer.id) + " running its server: ")
 # if(peer.role == peer.SEEDER):
 peer.run_server()
@@ -122,6 +131,7 @@ peer.run_server()
 if peer.role == peer.LEECHER or peer.role == peer.PEER:
     peer_ips = ['127.0.0.1/5000', '127.0.0.1/4999']  # this list will be sent by the tracker in your P2P assignment
     peer.connect(peer_ips)
+
 
 """ Output running this in the same machine """
 # Peer: 6d223864-9cd7-4327-ad02-7856d636af66 running its server:

@@ -59,7 +59,7 @@ class Server(object):
             print("Error while listening for client %s" % e)
             self.serversocket.close()
             sys.exit(1)
-    def _handler(self, clienthandler):
+    def _handler(self, tracker):
         """
         #TODO: receive, process, send response to the client using this handler.
         :param clienthandler:
@@ -69,15 +69,14 @@ class Server(object):
              # TODO: receive data from client
              # TODO: if no data, break the loop
              # TODO: Otherwise, send acknowledge to client. (i.e a message saying 'server got the data
-             deserialized_data = self.receive(clienthandler)
+             deserialized_data = self.receive(tracker)
              if not deserialized_data:
                  break
-             message = "Server got the data!"
-             self.send(clienthandler, message)
-             student_name = deserialized_data['student_name']
-             github_username = deserialized_data['github_username']
-             sid = deserialized_data['sid']
-             log = "Connected: Student: " + student_name + ", Github Username: " + github_username + ", sid: " + str(sid)
+             # message = "Server got the data!"
+             # self.send(tracker, message)
+             ip = deserialized_data['ip']
+             port = deserialized_data['port']
+             log = "Connected: IP: " + str(ip) + ", Port: " + str(port)
              print(log)
 
 
@@ -88,13 +87,13 @@ class Server(object):
         """
         while True:
             try:
-               clienthandler, addr = self.serversocket.accept()
+               tracker, addr = self.serversocket.accept()
 
                # TODO: from the addr variable, extract the client id assigned to the client
                # TODO: send assigned id to the new client. hint: call the send_clientid(..) method
-               client_id = addr[1]
-               self._send_clientid(clienthandler, client_id)
-               self._handler(clienthandler) # receive, process, send response to client.
+              # client_id = addr[1]
+              # self._send_clientid(clienthandler, client_id)
+               self._handler(tracker) # receive, process, send response to client.
             except socket.error as e:
                # handle exceptions here
                print("Error accepting client %s" % e)
@@ -128,14 +127,14 @@ class Server(object):
             self.serversocket.close()
             sys.exit(1)
 
-    def receive(self, clienthandler, MAX_ALLOC_MEM=4096):
+    def receive(self, tracker, MAX_ALLOC_MEM=4096):
         """
         # TODO: Deserialized the data from client
         :param MAX_ALLOC_MEM: default set to 4096
         :return: the deserialized data.
         """
         try:
-            data_from_client = clienthandler.recv(MAX_ALLOC_MEM)
+            data_from_client = tracker.recv(MAX_ALLOC_MEM)
         except socket.error as e:
             print("Error receiving data %s" % e)
             self.serversocket.close()

@@ -8,7 +8,7 @@
 ########################################################################
 import socket
 import pickle
-from client_helper import ClientHelper
+#from client_helper import ClientHelper
 
 
 class Client(object):
@@ -66,6 +66,7 @@ class Client(object):
         :param port:
         :return: VOID
         """
+
         try:
             print("Connecting...")
             self.clientSocket.connect((host, port))
