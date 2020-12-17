@@ -1,15 +1,20 @@
+# file:           uploader.py
+# Author:         Nathalia Sainez
+
 import pickle
 
 from message import Message
 from file_manager import FileManager
 from config import Config
 
-
 class Uploader:
     # peer_id, server, peer_uploader, address, torrent
     def __init__(self, server):
         # self.peer_id = peer_id
         self.config = Config()
+
+        #forward requests to downloader
+        self.downloader = Downloader()
         # self.torrent = torrent
         # self.file_manager = FileManager(peer_id=peer_id, torrent=torrent)
         # self.peer_uploader = peer_uploader
@@ -22,7 +27,6 @@ class Uploader:
         self.permitted = 0
         self.interest = 0
 
-        #### implement this ####
         self.uploader_bitfield = None
         self.downloader_bitfield = None
 
@@ -40,13 +44,13 @@ class Uploader:
         self.uploader_bitfield = self.message.init_bitfield(200)  # this will create a bitfield of size 25.
         self.send(self.uploader_bitfield)
 
-    def get_response(self, res):
+    def get_response(self, request, res):
         values = {
-            0: self.choke,
-            1: self.unchoke,
-            2: self.interested,
-            3: self.not_interested,
-            4: self.piece_downloaded,
+            0: self.choke(request),
+            1: self.unchoke(request),
+            2: self.interested(request),
+            3: self.not_interested(request),
+            4: self.piece_downloaded(request),
             # 5: self.bitfield,
             # 6: self.request,
             7: self.piece,
@@ -54,6 +58,9 @@ class Uploader:
         }
         return values.get(res, "Invalid ID")
 
+    # Moved to the server class so we can forward the
+    # requests here instead.
+    #
     # def listen(self):
     #     while True:
     #         try:
@@ -64,19 +71,18 @@ class Uploader:
     #         except:
     #             print("Error")
 
-    def choke(self):
+    def choke(self, request):
         print("\nDownload not permitted")
         self.permitted = 0
         return 0
 
-    def unchoke(self):
+    def unchoke(self, request):
         print("\nDownload Permitted")
         if self.interest == 1:  # interested in downloading file
             self.permitted = 1
             filter_key = ['bitfield']
             res = [request[key] for key in filter_key]
             all_zero = res.all((arr == 0))
-
             if all_zero:
                 print("Bitfield is empty. None of the file has been shared.")
             else:
@@ -84,42 +90,53 @@ class Uploader:
                 print(res)
                 self.send(res)
 
-    def interested(self):
+    def interested(self, request):
         print("\nPeer interested in download file")
         self.interest = 1
 
-    def not_interested(self):
-        print("\nPeer interested in downloading file")
+    def not_interested(self, request):
+        print("\nPeer not interested in downloading file")
         self.interest = 0
 
-    def piece_downloaded(self):
+    def piece_downloaded(self, request):
         print("\npayload is a bitfield representing the pieces that have been successfully downloaded")
-        # ismissing = self.message.is_piece_missing()
-
+        if self.is_completed(request):
+            self.downloader_bitfield = request
+            self.send(self.downloader_bitfield)
+        else:
+            print("...")
+    # ismissing = self.message.is_piece_missing()
 
     # def bitfield(self):
     #     print("\nBitfield")
     #
     # def request(self):
     #     print("request")
-
     # send to downloader
+
     def piece(self):
         print("piece")
-
         self.send(self.downloader_bitfield)
 
     def cancel(self):
         print("cancel")
         self.permitted = 0
 
-    #    After the last block of the piece is sent to P2, others peers needs
-    #    to know that P2 completed the piece.
-    def is_completed(self):
+    # After the last block of the piece is sent to P2, others peers needs
+    # to know that P2 completed the piece.
+    def is_completed(self, request):
         if self.message.is_piece_missing():
             not_completed = 0
         # send to the downloader
+        all_zero = res.all((arr == 1))
 
+        if all_zero:
+            print("Bitfield contains all ones.")
+            return true
+        else:
+            print("Bitfield contains at least one zero. ")
+            print(res)
+            return false
 
 # When the client from P2 connects to P1, the server will create and thread the
 # uploader class (like the clienthandler class)
@@ -138,7 +155,6 @@ class Uploader:
 # The uploader needs access to the bitfield of other peers because it needs
 # to make sure that the block P2 is requesting is not being requested twice.
 
-
 # TODO
 # 1. Init bitfield
 #    -> init_bitfield will initialize the bitfield with all the pieces set to missing: b'00000000'
@@ -156,13 +172,13 @@ class Uploader:
 # self.unchoke = {'len': b'0001', 'id': 1}
 # self.interested = {'len': b'0001', 'id': 2}
 # self.not_interested = {'len': b'0001', 'id': 3}
-#
+
 # 5. Now listen for next request from Peer 2
-#
+
 # 6. Forward request to download from Peer 2 to downloader
 #       -> Request will contain a piece and a block
 #       -> send blocks
-#
+
 # 7. After the last block of the piece is sent to P2, others peers needs
 #    to know that P2 completed the piece.
 #     def is_piece_missing(self, piece_index):
