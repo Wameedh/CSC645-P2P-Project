@@ -16,6 +16,9 @@ Please use this README file to provide the following documentation for this proj
 * If you used external Python modules/libraries. Provide a requirements.txt file
   
 * Python version and compatibility issues (if any)
+
+Python 3.8.5
+
 * Clear and specific instructions about how to run your project. If your project does not run or contains errors, you'll get a 0 in the project no matter how much work you put on it. So, test your code properly and make sure that it runs without errors.
 * A few sentences about all the challenges you found during the implementation of this project and how you overcame them. Please be honest here. 
 
