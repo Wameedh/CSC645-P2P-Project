@@ -27,8 +27,9 @@ class Tracker:
         self._is_announce = announce
         self.DHT_PORT = server.getID()['port']
         self.udp_socket = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+        self.udp_socket.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEPORT, 1)
         self.udp_socket.setsockopt(socket.SOL_SOCKET, socket.SO_BROADCAST, 1)
-        self.udp_socket.bind((self._server.host, self.DHT_PORT))
+        self.udp_socket.bind(('', self.DHT_PORT))
         # self._clienthandler = server.clienthandlers[0]
         # will story a list of dictionaries representing entries in the routing table
         # dictionaries stored here are in the following form
@@ -41,16 +42,16 @@ class Tracker:
         self._routing_table = [[self._server.host, self.DHT_PORT]]
         self.tokens = ["token"]
 
-    def broadcast(self, self_broadcast_enabled=False):
+    def broadcast(self, message, self_broadcast_enabled=False):
 
         if (self.DHT_PORT == 5000):
             port = 5001
-        if (self.DHT_PORT == 5001):
+        if (self.DHT_PORT == 4999):
             port = 5000
 
         try:
-            encoded_message = self.encode(self._routing_table)
-            self.udp_socket.sendto(encoded_message, ('<broadcast>', port))
+            encoded_message = self.encode(message)
+            self.udp_socket.sendto(encoded_message, ('<broadcast>', self.DHT_PORT))
             print("\nMessage broadcast.....")
         except socket.error as error:
             print(error)
@@ -68,13 +69,16 @@ class Tracker:
             print("\nListening at DHT port: ", self.DHT_PORT)
             while True:
                 raw_data, sender_ip_and_port = self.udp_socket.recvfrom(4096)
+                print("STEP-1")
                 if raw_data:
                     data = self.decode(raw_data)
                     ip_sender = sender_ip_and_port[0]
                     port_sender = sender_ip_and_port[1]
-                    self._routing_table.appand([ip_sender, port_sender])
+                    print("STEP-2")
+                    self._routing_table.append([ip_sender, port_sender])
+                    print("STEP-3")
                     print("\ndata received by sender {}:{}".format(ip_sender, port_sender))
-                    self.process_query(data)
+                    #self.process_query(data)
 
         except:
             print("\nError listening at DHT port")

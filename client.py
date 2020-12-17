@@ -27,6 +27,7 @@ class Client(object):
         # AF_INET refers to the address family ipv4.
         # The SOCK_STREAM means connection oriented TCP protocol.
         self.clientSocket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+        self.clientSocket.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
         self.client_id = 0
         self.userInfo = {}
 
@@ -58,7 +59,7 @@ class Client(object):
         name = self.userInfo['name']
         self.send(name)
 
-    def connect(self, host, port):
+    def connect(self, host, port, myIp, myPort):
         """
         TODO: Connects to a server. Implements exception handler if connection is resetted.
 	    Then retrieves the cliend id assigned from server, and sets
@@ -66,7 +67,7 @@ class Client(object):
         :param port:
         :return: VOID
         """
-
+        data = {'ip': myIp, 'port': myPort}
         try:
             print("Connecting...")
             self.clientSocket.connect((host, port))
@@ -74,6 +75,7 @@ class Client(object):
             print("Caught exception socket.error : %s" % exc)
             self.close()
 
+        self.send(data)
         # Once the client creates a successful connection, the server will send the client id to this client.
         #self.set_client_id()
         #self.send_user_Name()
