@@ -15,6 +15,9 @@ import pickle
 import sys
 from threading import Thread
 
+from uploader import Uploader
+
+
 class Server(object):
     """
     The server class implements a server socket that can handle multiple client connections.
@@ -36,6 +39,8 @@ class Server(object):
         self.serversocket = socket.socket(socket.AF_INET, socket.SOCK_STREAM) # TODO: create the server socket
         self.serversocket.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
         self.client_handlers = [] # initializes client_handlers list
+        self.uploader = Uploader(self)
+
 
     def _bind(self):
         """
@@ -55,10 +60,18 @@ class Server(object):
             # your code here
             self.serversocket.listen(self.MAX_NUM_CONN)
             print("Listening at " + self.host + "/" + str(self.port))
+            request = self.receive()
+            filter_key = ['id']
+            res = [request[key] for key in filter_key]
+            # send request to uploader
+            self.uploader.get_response(self)
+
+
         except socket.error as e:
             print("Error while listening for client %s" % e)
             self.serversocket.close()
             sys.exit(1)
+
     def _handler(self, tracker):
         """
         #TODO: receive, process, send response to the client using this handler.

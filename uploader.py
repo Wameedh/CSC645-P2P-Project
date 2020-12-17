@@ -7,16 +7,15 @@ from config import Config
 
 
 class Uploader:
-
-    def __init__(self, peer_id, server, peer_uploader, address, torrent):
-        self.peer_id = peer_id
+    # peer_id, server, peer_uploader, address, torrent
+    def __init__(self, server):
+        # self.peer_id = peer_id
         self.config = Config()
-        self.torrent = torrent
-        self.file_manager = FileManager(peer_id=peer_id, torrent=torrent)
-        self.peer_uploader = peer_uploader
+        # self.torrent = torrent
+        # self.file_manager = FileManager(peer_id=peer_id, torrent=torrent)
+        # self.peer_uploader = peer_uploader
         self.server = server
-        self.address = address
-        self.pwp = PWP()
+        # self.address = address
         self.peer_id = -1
         self.uploaded = 0  # bytes
         self.downloaded = 0  # bytes
@@ -30,31 +29,32 @@ class Uploader:
 
     def send(self, data):
         serialized_data = pickle.dumps(data)
-        self.peer_uploader.send(serialized_data)
+        self.server.send(serialized_data)
 
     def receive(self, max_alloc_mem=4096):
-        serialized_data = self.peer_uploader.recv(max_alloc_mem)
+        serialized_data = self.server.recv(max_alloc_mem)
         data = pickle.loads(serialized_data)
         return data
-    #
-    # def setUp(self):
-    #     self.uploader_bitfield = self.message.init_bitfield(200)  # this will create a bitfield of size 25.
-    #     self.send(self.uploader_bitfield)
-    #
-    # def get_response(self, res):
-    #     values = {
-    #         0: self.choke,
-    #         1: self.unchoke,
-    #         2: self.interested,
-    #         3: self.not_interested,
-    #         4: self.piece_downloaded,
-    #         5: self.bitfield,
-    #         6: self.request,
-    #         7: self.piece,
-    #         8: self.cancel
-    #     }
-    #     return values.get(res, "Invalid ID")
-    #
+
+    # sends initial uploader bitfield to all peers in network
+    def setUp(self):
+        self.uploader_bitfield = self.message.init_bitfield(200)  # this will create a bitfield of size 25.
+        self.send(self.uploader_bitfield)
+
+    def get_response(self, res):
+        values = {
+            0: self.choke,
+            1: self.unchoke,
+            2: self.interested,
+            3: self.not_interested,
+            4: self.piece_downloaded,
+            5: self.bitfield,
+            6: self.request,
+            7: self.piece,
+            8: self.cancel
+        }
+        return values.get(res, "Invalid ID")
+
     # def listen(self):
     #     while True:
     #         try:
@@ -64,39 +64,39 @@ class Uploader:
     #             self.get_response(res)
     #         except:
     #             print("Error")
-    #
-    # def choke(self):
-    #     print("\nDownload not permitted")
-    #     self.permitted = 0
-    #     return 0
-    #
-    # def unchoke(self):
-    #     print("\nDownload Permitted")
-    #     if self.interest == 1:  # interested in downloading file
-    #         self.permitted = 1
-    #
-    # def interested(self):
-    #     print("\nPeer interested in download file")
-    #     self.interest = 1
-    #
-    # def not_interested(self):
-    #     print("\nPeer interested in download file")
-    #     self.interest = 0
-    #
-    # def piece_downloaded(self):
-    #     print("\npayload is a bitfield representing the pieces that have been successfully downloaded")
-    #
-    # def bitfield(self):
-    #     print("\nBitfield")
-    #
-    # def request(self):
-    #     print("request")
-    #
-    # def piece(self):
-    #     print("piece")
-    #
-    # def cancel(self):
-    #     print("cancel")
+
+    def choke(self):
+        print("\nDownload not permitted")
+        self.permitted = 0
+        return 0
+
+    def unchoke(self):
+        print("\nDownload Permitted")
+        if self.interest == 1:  # interested in downloading file
+            self.permitted = 1
+
+    def interested(self):
+        print("\nPeer interested in download file")
+        self.interest = 1
+
+    def not_interested(self):
+        print("\nPeer interested in download file")
+        self.interest = 0
+
+    def piece_downloaded(self):
+        print("\npayload is a bitfield representing the pieces that have been successfully downloaded")
+
+    def bitfield(self):
+        print("\nBitfield")
+
+    def request(self):
+        print("request")
+
+    def piece(self):
+        print("piece")
+
+    def cancel(self):
+        print("cancel")
 
 # TODO
 # 1. Init bitfield
