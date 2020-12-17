@@ -52,20 +52,19 @@ class Server(object):
     def _listen(self):
         """
         # TODO: puts the server in listening mode.
-        # TODO: if succesful, print the message "Server listening at ip/port"
+        # TODO: if successful, print the message "Server listening at ip/port"
         :return: VOID
         """
         try:
             self._bind()
-            # your code here
             self.serversocket.listen(self.MAX_NUM_CONN)
             print("Listening at " + self.host + "/" + str(self.port))
-            request = self.receive()
+            # Extract id from the request from the Peer
+            request = self.recv()
             filter_key = ['id']
             res = [request[key] for key in filter_key]
-            # send request to uploader
+            # Send request to Uploader
             self.uploader.get_response(self)
-
 
         except socket.error as e:
             print("Error while listening for client %s" % e)

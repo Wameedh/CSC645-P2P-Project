@@ -48,8 +48,8 @@ class Uploader:
             2: self.interested,
             3: self.not_interested,
             4: self.piece_downloaded,
-            5: self.bitfield,
-            6: self.request,
+            # 5: self.bitfield,
+            # 6: self.request,
             7: self.piece,
             8: self.cancel
         }
@@ -85,18 +85,29 @@ class Uploader:
 
     def piece_downloaded(self):
         print("\npayload is a bitfield representing the pieces that have been successfully downloaded")
+        ismissing = self.message.is_piece_missing()
 
-    def bitfield(self):
-        print("\nBitfield")
+    # def bitfield(self):
+    #     print("\nBitfield")
+    #
+    # def request(self):
+    #     print("request")
 
-    def request(self):
-        print("request")
-
+    # send to downloader
     def piece(self):
         print("piece")
 
+        self.send(self.downloader_bitfield)
+
     def cancel(self):
         print("cancel")
+
+    #    After the last block of the piece is sent to P2, others peers needs
+    #    to know that P2 completed the piece.
+    def completed(self):
+        if self.message.is_piece_missing():
+            not_completed = 0
+        # send to the downloader
 
 # TODO
 # 1. Init bitfield
