@@ -26,15 +26,17 @@ the peers.
 Python 3.8.5
 
 * Clear and specific instructions about how to run your project. If your project does not run or contains errors, you'll get a 0 in the project no matter how much work you put on it. So, test your code properly and make sure that it runs without errors.
-* A few sentences about all the challenges you found during the implementation of this project and how you overcame them. Please be honest here. 
 
+       - To run our program, you will first be prompted to chose a role.
+       - The first role will be a 'seeder'.
+       - Next you will be prompted to chose a port, choose port 4999
 
-       * To run our program, you will first be prompted to chose a role.
-       * The first role will be a 'seeder'.
-       * Next you will be prompted to chose a port, choose port 4999
+       - In a separate terminal, run the code and choose the role "peer"
+       - When prompted for the port choose 5000
+       
+* A few sentences about all the challenges you found during the implementation of this project and how you overcame them. Please be honest here.
 
-       * In a separate terminal, run the code and choose the role "peer"
-       * When prompted for the port choose 5000
+The biggest challenged we faced while working on this project was connecting all of the classes we worked on individually together. The project was very large, and getting a perfect understanding of everything was very difficult especially when that knowledge was split among 4 people. We were also working on time constraints, because we still had to ration time for finals on our other classes. This occasionally made scheduling difficult, and having all four heads together was necessary when trying to make heads or tails of how to connect our code.
 
 
 ## Note that failure to provide the above docs will result in a 30% deduction in your final grade for this project. 
