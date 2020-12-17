@@ -1,0 +1,5 @@
+bencode==1.0
+bencode.py==4.0.0
+bencodepy==0.9.5
+bitarray==1.6.1
+torrent-parser==0.3.0

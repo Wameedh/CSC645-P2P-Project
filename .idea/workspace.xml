@@ -19,7 +19,9 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="74433d2d-920e-4e96-9ecf-2510bda60e71" name="Default Changelist" comment="UDP and TCP connection has been implemented!" />
+    <list default="true" id="74433d2d-920e-4e96-9ecf-2510bda60e71" name="Default Changelist" comment="UDP and TCP connection has been implemented!">
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -78,7 +80,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1608174332872</updated>
-      <workItem from="1608174334274" duration="11741000" />
+      <workItem from="1608174334274" duration="12119000" />
     </task>
     <task id="LOCAL-00001" summary="udp works!">
       <created>1608174445598</created>
@@ -101,7 +103,14 @@
       <option name="project" value="LOCAL" />
       <updated>1608188055480</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="UDP and TCP connection has been implemented!">
+      <created>1608188380751</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1608188380751</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -157,11 +166,11 @@
       <screen x="36" y="25" width="1404" height="875" />
     </state>
     <state width="1340" height="183" key="GridCell.Tab.1.right/36.25.1404.875@36.25.1404.875" timestamp="1608186531756" />
-    <state x="332" y="180" key="Vcs.Push.Dialog.v2" timestamp="1608188247491">
+    <state x="332" y="180" key="Vcs.Push.Dialog.v2" timestamp="1608188387108">
       <screen x="36" y="25" width="1404" height="875" />
     </state>
     <state x="331" y="180" key="Vcs.Push.Dialog.v2/35.25.1405.875@35.25.1405.875" timestamp="1608174449891" />
-    <state x="332" y="180" key="Vcs.Push.Dialog.v2/36.25.1404.875@36.25.1404.875" timestamp="1608188247491" />
+    <state x="332" y="180" key="Vcs.Push.Dialog.v2/36.25.1404.875@36.25.1404.875" timestamp="1608188387108" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/CSC645_P2P_Project$peer.coverage" NAME="peer Coverage Results" MODIFIED="1608186237763" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
