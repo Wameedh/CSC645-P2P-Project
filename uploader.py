@@ -73,7 +73,16 @@ class Uploader:
         print("\nDownload Permitted")
         if self.interest == 1:  # interested in downloading file
             self.permitted = 1
+            filter_key = ['bitfield']
+            res = [request[key] for key in filter_key]
+            all_zero = res.all((arr == 0))
 
+            if all_zero:
+                print("Bitfield is empty. None of the file has been shared.")
+            else:
+                print("Bitfield contains at least one non-zero number: ")
+                print(res)
+                self.send(res)
 
     def interested(self):
         print("\nPeer interested in download file")
@@ -85,7 +94,7 @@ class Uploader:
 
     def piece_downloaded(self):
         print("\npayload is a bitfield representing the pieces that have been successfully downloaded")
-        ismissing = self.message.is_piece_missing()
+        # ismissing = self.message.is_piece_missing()
 
 
     # def bitfield(self):
@@ -102,6 +111,7 @@ class Uploader:
 
     def cancel(self):
         print("cancel")
+        self.permitted = 0
 
     #    After the last block of the piece is sent to P2, others peers needs
     #    to know that P2 completed the piece.
@@ -109,6 +119,25 @@ class Uploader:
         if self.message.is_piece_missing():
             not_completed = 0
         # send to the downloader
+
+
+# When the client from P2 connects to P1, the server will create and thread the
+# uploader class (like the clienthandler class)
+
+# Uploader will communicate with the client of P2 directly, send request/response to
+# each other (like the Menu in Client/Server)
+
+# P2 will send a message saying it is interested in downloading the file
+
+# P1 has two options to respond to the message from P2,
+# self.choke(0) or self.un-choke (1)
+
+# self.uploader_bitfield is sending your bitfield to all the other peers in the network
+# self.downloader_bitfield used to download the file for P2 and putting it into persistent storage
+
+# The uploader needs access to the bitfield of other peers because it needs
+# to make sure that the block P2 is requesting is not being requested twice.
+
 
 # TODO
 # 1. Init bitfield

@@ -39,7 +39,7 @@ class Server(object):
         self.serversocket = socket.socket(socket.AF_INET, socket.SOCK_STREAM) # TODO: create the server socket
         self.serversocket.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
         self.client_handlers = [] # initializes client_handlers list
-        self.uploader = Uploader(self)
+
 
 
     def _bind(self):
@@ -55,12 +55,17 @@ class Server(object):
         # TODO: if successful, print the message "Server listening at ip/port"
         :return: VOID
         """
+        self.uploader = Uploader()
         try:
             self._bind()
             self.serversocket.listen(self.MAX_NUM_CONN)
             print("Listening at " + self.host + "/" + str(self.port))
+
+            #thread uploader class
+            Thread(target=self.uploader.setUp, args=" ").start()
+            request = self.receive()
+
             # Extract id from the request from the Peer
-            request = self.recv()
             filter_key = ['id']
             res = [request[key] for key in filter_key]
             # Send request to Uploader
@@ -139,14 +144,14 @@ class Server(object):
             self.serversocket.close()
             sys.exit(1)
 
-    def receive(self, tracker, MAX_ALLOC_MEM=4096):
+    def receive(self, MAX_ALLOC_MEM=4096):
         """
         # TODO: Deserialized the data from client
         :param MAX_ALLOC_MEM: default set to 4096
         :return: the deserialized data.
         """
         try:
-            data_from_client = tracker.recv(MAX_ALLOC_MEM)
+            data_from_client = self.serversocket.recv(MAX_ALLOC_MEM)
         except socket.error as e:
             print("Error receiving data %s" % e)
             self.serversocket.close()
