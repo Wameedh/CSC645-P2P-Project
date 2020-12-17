@@ -5,6 +5,8 @@ Please use this README file to provide the following documentation for this proj
 * Team:
 
        Wameedh Mohammed Ali (920678405)
+       Raymond Au (916672216)
+       Nathalia Sainez (915889226)
        Bikram  Tamang (920465296)
        
 * General description of the project (a few sentences)
