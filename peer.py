@@ -9,6 +9,7 @@ from client import Client
 from tracker import Tracker
 from torrent import *  # assumes that your Torrent file is in this folder
 import uuid
+import time
 
 
 class Peer(Server):
@@ -30,10 +31,12 @@ class Peer(Server):
     SEEDER = 'seeder'
 
     def __init__(self, role=SEEDER, server_ip_address='127.0.0.1'):
+
         """
         Class constructor
         :param server_ip_address: used when need to use the ip assigned by LAN
         """
+        self.set_info()
         Server.__init__(self, server_ip_address, self.SERVER_PORT)  # inherits methods from the server
 
         self.server_ip_address = server_ip_address
@@ -42,6 +45,9 @@ class Peer(Server):
         self.torrent = Torrent("age.torrent")
         self.tracker = Tracker(self, self.torrent)
 
+    def set_info(self):
+        port = input("Enter the server port: ")
+        self.SERVER_PORT = int(port)
 
     def run_server(self):
         """
@@ -50,11 +56,14 @@ class Peer(Server):
         """
         data = {'ip': self.server_ip_address, 'port': self.SERVER_PORT}
         try:
-            self.tracker.broadcast(data)
-            #self.tracker.broadcast_listener()
-            #self.tracker.run()
-            # must thread the server, otherwise it will block the main thread
-            Thread(target=self.run, daemon=False).start()
+
+             #must thread the server, otherwise it will block the main thread
+
+            if self.role == self.SEEDER:
+                Thread(target=self.run, daemon=False).start()
+                while True:
+                    self.tracker.broadcast()
+                    time.sleep(9)
         except Exception as error:
             print(error)  # server failed to run
 
@@ -93,31 +102,40 @@ class Peer(Server):
             client.close()
             return False
 
-    def connect(self, peers_ip_addresses):
+    def connect(self):
         """
         With this function this peer creates multiple clients that connect to multiple peers
         :param peers_ip_addresses: the ip addresses of the peers (their servers ip_addresses)
         :return: VOID
         """
+        self.tracker.broadcast_listener()
+        routing_table = self.tracker.get_routing_table()
+
         client_port = self.CLIENT_MIN_PORT_RANGE
         default_peer_port = self.SERVER_PORT
-        for peer_ip in peers_ip_addresses:
+
+        for i in range(len(routing_table)):
             if client_port > self.CLIENT_MAX_PORT_RANGE:
                 break
-            if "/" in peer_ip:  # checks if the ip address includes ports
+           # if "/" in peer_ip:  # checks if the ip address includes ports
                 # This part is good if your P2P supports sharing different files
                 # Then the same peer can run different servers in the same machine
-                ip_and_port = peer_ip.split("/")
-                peer_ip = ip_and_port[0]  # the ip address of the peer
-                default_peer_port = int(ip_and_port[1])  # the port of the peer
-            if self._connect_to_peer(client_port, peer_ip, default_peer_port):
-                # the client connected. incrementing the client port here prevents
-                # wasting ports in the range of ports assigned if the client connection fails.
-                client_port += 1
+                #ip_and_port = peer_ip.split("/")
+                #peer_ip = ip_and_port[0]  # the ip address of the peer
+                #default_peer_port = int(ip_and_port[1])  # the port of the peer
+            if i > 0:
+                peer_ip = routing_table[i][0]
+                default_peer_port = routing_table[i][1]
+                if self._connect_to_peer(client_port, peer_ip, default_peer_port):
+                    # the client connected. incrementing the client port here prevents
+                    # wasting ports in the range of ports assigned if the client connection fails.
+                    client_port += 1
 
 
 # testing
-peer = Peer(role='peer')
+
+role = input("Enter role: ")
+peer = Peer(role)
 print("Peer: " + str(peer.id) + " running its server: ")
 # if(peer.role == peer.SEEDER):
 peer.run_server()
@@ -129,9 +147,9 @@ print("Peer: " + str(peer.id) + " running its clients: ")
 #  Using different machines
 #      1. Run two peers in different machines.
 #      2. Run a peer in this machine.
-# if peer.role == peer.LEECHER or peer.role == peer.PEER:
-#     peer_ips = ['127.0.0.1/5000', '127.0.0.1/4999']  # this list will be sent by the tracker in your P2P assignment
-#     peer.connect(peer_ips)
+if peer.role == peer.LEECHER or peer.role == peer.PEER:
+   # peer_ips = ['127.0.0.1/5000', '127.0.0.1/4999']  # this list will be sent by the tracker in your P2P assignment
+    peer.connect()
 
 
 """ Output running this in the same machine """
