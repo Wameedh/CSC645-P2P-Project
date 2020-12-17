@@ -38,11 +38,7 @@ class Client(object):
         """
         self.clientSocket.bind((client_ip, client_port))
 
-    def set_info(self):
-        host = input("Enter the server IP Address: ")
-        port = input("Enter the server port: ")
-        name = input("Your id key (i.e. your name): ")
-        self.userInfo = {'host': host, 'port': int(port), 'name': name}
+
 
     def set_client_id(self):
         """
@@ -75,7 +71,7 @@ class Client(object):
             print("Caught exception socket.error : %s" % exc)
             self.close()
 
-        self.send(data)
+        #self.send(data)
         # Once the client creates a successful connection, the server will send the client id to this client.
         #self.set_client_id()
         #self.send_user_Name()
