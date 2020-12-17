@@ -1,9 +1,7 @@
 import hashlib
 from os import path
 import shutil
-import json
 
-from Labs.lab9.torrent import Torrent
 
 
 class FileManager:

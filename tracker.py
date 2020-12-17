@@ -51,7 +51,7 @@ class Tracker:
 
         try:
             encoded_message = self.encode(message)
-            self.udp_socket.sendto(encoded_message, ('<broadcast>', self.DHT_PORT))
+            self.udp_socket.sendto(encoded_message, ('<broadcast>', port))
             print("\nMessage broadcast.....")
         except socket.error as error:
             print(error)

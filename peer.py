@@ -17,7 +17,7 @@ class Peer(Server):
     Once the connection is created downloading data is done in similar way as in TCP assigment.
     """
 
-    SERVER_PORT = 5000
+    SERVER_PORT = 4999
     CLIENT_MIN_PORT_RANGE = 5001
     CLIENT_MAX_PORT_RANGE = 5010
 
@@ -51,7 +51,7 @@ class Peer(Server):
         data = {'ip': self.server_ip_address, 'port': self.SERVER_PORT}
         try:
             self.tracker.broadcast(data)
-            self.tracker.broadcast_listener()
+            #self.tracker.broadcast_listener()
             #self.tracker.run()
             # must thread the server, otherwise it will block the main thread
             Thread(target=self.run, daemon=False).start()

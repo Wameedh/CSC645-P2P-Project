@@ -1,7 +1,6 @@
 import pickle
 
 from message import Message
-from pwp import PWP
 from file_manager import FileManager
 from config import Config
 
@@ -75,17 +74,19 @@ class Uploader:
         if self.interest == 1:  # interested in downloading file
             self.permitted = 1
 
+
     def interested(self):
         print("\nPeer interested in download file")
         self.interest = 1
 
     def not_interested(self):
-        print("\nPeer interested in download file")
+        print("\nPeer interested in downloading file")
         self.interest = 0
 
     def piece_downloaded(self):
         print("\npayload is a bitfield representing the pieces that have been successfully downloaded")
         ismissing = self.message.is_piece_missing()
+
 
     # def bitfield(self):
     #     print("\nBitfield")
@@ -104,7 +105,7 @@ class Uploader:
 
     #    After the last block of the piece is sent to P2, others peers needs
     #    to know that P2 completed the piece.
-    def completed(self):
+    def is_completed(self):
         if self.message.is_piece_missing():
             not_completed = 0
         # send to the downloader
