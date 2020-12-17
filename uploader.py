@@ -1,7 +1,6 @@
 import pickle
 
 from message import Message
-from pwp import PWP
 from file_manager import FileManager
 from config import Config
 
