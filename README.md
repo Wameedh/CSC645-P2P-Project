@@ -11,12 +11,12 @@ Please use this README file to provide the following documentation for this proj
        
 * General description of the project (a few sentences)
 
-       This program simulates a decentralized peer to peer network. In a decentralized peer to peer network, every peer will keep and maintain their own DHT table.
-       The DHT is important as it carries vital information like the ip address and port numbers of other peers in the network. We first run a peer which has the
-       role of the seeder. The seeder is the peer in the network that has the original file and once it's run it will be listening. If Peer 2 wants to join the 
-       swarm then it will broadcast. Peer 1 will respond to Peer 2's broadcast by sending over the DHT table. Now that Peer 2 has the DHT table, it has all the 
-       information needed to create a TCP connection to the other peers in the network. At this point we can begin taking steps begin transfering files between
-       the peers.
+This program simulates a decentralized peer to peer network. In a decentralized peer to peer network, every peer will keep and maintain their own DHT table.
+The DHT is important as it carries vital information like the ip address and port numbers of other peers in the network. We first run a peer which has the
+role of the seeder. The seeder is the peer in the network that has the original file and once it's run it will be listening. If Peer 2 wants to join the 
+swarm then it will broadcast. Peer 1 will respond to Peer 2's broadcast by sending over the DHT table. Now that Peer 2 has the DHT table, it has all the 
+information needed to create a TCP connection to the other peers in the network. At this point we can begin taking steps begin transfering files between
+the peers.
        
        
 * If you used external Python modules/libraries. Provide a requirements.txt file
