@@ -42,7 +42,7 @@ class Tracker:
         self._routing_table = [[self._server.host, self.DHT_PORT]]
         self.tokens = ["token"]
 
-    def broadcast(self, message, self_broadcast_enabled=False):
+    def broadcast(self, self_broadcast_enabled=False):
 
         if (self.DHT_PORT == 5000):
             port = 5001
@@ -50,7 +50,7 @@ class Tracker:
             port = 5000
 
         try:
-            encoded_message = self.encode(message)
+            encoded_message = self.encode(self._routing_table)
             self.udp_socket.sendto(encoded_message, ('<broadcast>', port))
             print("\nMessage broadcast.....")
         except socket.error as error:
@@ -75,9 +75,13 @@ class Tracker:
                     ip_sender = sender_ip_and_port[0]
                     port_sender = sender_ip_and_port[1]
                     print("STEP-2")
-                    self._routing_table.append([ip_sender, port_sender])
+                    for i in range(len(data)):
+                        data[i][0] = data[i][0].decode('utf-8')
+                        self._routing_table.append(data[i])
+
                     print("STEP-3")
                     print("\ndata received by sender {}:{}".format(ip_sender, port_sender))
+                    break
                     #self.process_query(data)
 
         except:
@@ -211,6 +215,9 @@ class Tracker:
             except:
                 pass
         pass
+
+    def get_routing_table(self):
+        return self._routing_table
 
     def run(self, start_with_broadcast=True):
         """
