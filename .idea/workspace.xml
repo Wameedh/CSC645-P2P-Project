@@ -19,10 +19,7 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="b55836cd-da3c-4db9-a99b-85ee92d42fac" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/server.py" beforeDir="false" afterPath="$PROJECT_DIR$/server.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/uploader.py" beforeDir="false" afterPath="$PROJECT_DIR$/uploader.py" afterDir="false" />
-    </list>
+    <list default="true" id="74433d2d-920e-4e96-9ecf-2510bda60e71" name="Default Changelist" comment="UDP and TCP connection has been implemented!" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -31,43 +28,80 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="JupyterTrust" id="90fcc724-807a-450c-839c-49188dd1ac47" />
-  <component name="ProjectId" id="1ld1eQHfWNcq8zRJ3raYh2ZQ2oC" />
-  <component name="ProjectLevelVcsManager">
-    <ConfirmationsSetting value="2" id="Add" />
-  </component>
+  <component name="JupyterTrust" id="d21ffec9-34a4-450c-8f4b-658a9c7ce1e1" />
+  <component name="ProjectId" id="1llarmvYzEAXaGSbCOOoNRGdmsR" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent">
-    <property name="ASKED_ADD_EXTERNAL_FILES" value="true" />
     <property name="ASKED_SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
-    <property name="node.js.detected.package.eslint" value="true" />
-    <property name="node.js.detected.package.tslint" value="true" />
-    <property name="node.js.path.for.package.eslint" value="project" />
-    <property name="node.js.path.for.package.tslint" value="project" />
-    <property name="node.js.selected.package.eslint" value="(autodetect)" />
-    <property name="node.js.selected.package.tslint" value="(autodetect)" />
+  </component>
+  <component name="RunManager">
+    <configuration name="peer" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="CSC645-P2P-Project" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/peer.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Python.peer" />
+      </list>
+    </recent_temporary>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
-      <changelist id="b55836cd-da3c-4db9-a99b-85ee92d42fac" name="Default Changelist" comment="" />
-      <created>1607912248917</created>
+      <changelist id="74433d2d-920e-4e96-9ecf-2510bda60e71" name="Default Changelist" comment="" />
+      <created>1608174332872</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
-      <updated>1607912248917</updated>
-      <workItem from="1607912250318" duration="3121000" />
-      <workItem from="1607973599012" duration="1254000" />
-      <workItem from="1607990506851" duration="80000" />
-      <workItem from="1607997725965" duration="1937000" />
-      <workItem from="1608016499172" duration="22984000" />
+      <updated>1608174332872</updated>
+      <workItem from="1608174334274" duration="11741000" />
     </task>
+    <task id="LOCAL-00001" summary="udp works!">
+      <created>1608174445598</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1608174445598</updated>
+    </task>
+    <task id="LOCAL-00002" summary="deleted pwp.py">
+      <created>1608177881518</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1608177881518</updated>
+    </task>
+    <task id="LOCAL-00003" summary="UDP and TCP connection has been implemented!">
+      <created>1608188055480</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1608188055480</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -83,19 +117,53 @@
         </entry>
       </map>
     </option>
-    <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="VcsManagerConfiguration">
-    <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
+    <MESSAGE value="udp works!" />
+    <MESSAGE value="deleted pwp.py" />
+    <MESSAGE value="UDP and TCP connection has been implemented!" />
+    <option name="LAST_COMMIT_MESSAGE" value="UDP and TCP connection has been implemented!" />
   </component>
   <component name="WindowStateProjectService">
-    <state x="677" y="332" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1607913098601">
-      <screen x="0" y="23" width="1440" height="877" />
+    <state width="1340" height="183" key="GridCell.Tab.0.bottom" timestamp="1608186531753">
+      <screen x="36" y="25" width="1404" height="875" />
     </state>
-    <state x="677" y="332" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.23.1440.877@0.23.1440.877" timestamp="1607913098601" />
-    <state x="2065" y="258" width="670" height="676" key="search.everywhere.popup" timestamp="1608069644827">
-      <screen x="1440" y="23" width="1920" height="1057" />
+    <state width="1340" height="183" key="GridCell.Tab.0.bottom/36.25.1404.875@36.25.1404.875" timestamp="1608186531753" />
+    <state width="1340" height="183" key="GridCell.Tab.0.center" timestamp="1608186531752">
+      <screen x="36" y="25" width="1404" height="875" />
     </state>
-    <state x="2065" y="258" width="670" height="676" key="search.everywhere.popup/0.23.1440.877/1440.23.1920.1057@1440.23.1920.1057" timestamp="1608069644827" />
+    <state width="1340" height="183" key="GridCell.Tab.0.center/36.25.1404.875@36.25.1404.875" timestamp="1608186531752" />
+    <state width="1340" height="183" key="GridCell.Tab.0.left" timestamp="1608186531751">
+      <screen x="36" y="25" width="1404" height="875" />
+    </state>
+    <state width="1340" height="183" key="GridCell.Tab.0.left/36.25.1404.875@36.25.1404.875" timestamp="1608186531751" />
+    <state width="1340" height="183" key="GridCell.Tab.0.right" timestamp="1608186531753">
+      <screen x="36" y="25" width="1404" height="875" />
+    </state>
+    <state width="1340" height="183" key="GridCell.Tab.0.right/36.25.1404.875@36.25.1404.875" timestamp="1608186531753" />
+    <state width="1340" height="183" key="GridCell.Tab.1.bottom" timestamp="1608186531756">
+      <screen x="36" y="25" width="1404" height="875" />
+    </state>
+    <state width="1340" height="183" key="GridCell.Tab.1.bottom/36.25.1404.875@36.25.1404.875" timestamp="1608186531756" />
+    <state width="1340" height="183" key="GridCell.Tab.1.center" timestamp="1608186531755">
+      <screen x="36" y="25" width="1404" height="875" />
+    </state>
+    <state width="1340" height="183" key="GridCell.Tab.1.center/36.25.1404.875@36.25.1404.875" timestamp="1608186531755" />
+    <state width="1340" height="183" key="GridCell.Tab.1.left" timestamp="1608186531755">
+      <screen x="36" y="25" width="1404" height="875" />
+    </state>
+    <state width="1340" height="183" key="GridCell.Tab.1.left/36.25.1404.875@36.25.1404.875" timestamp="1608186531755" />
+    <state width="1340" height="183" key="GridCell.Tab.1.right" timestamp="1608186531756">
+      <screen x="36" y="25" width="1404" height="875" />
+    </state>
+    <state width="1340" height="183" key="GridCell.Tab.1.right/36.25.1404.875@36.25.1404.875" timestamp="1608186531756" />
+    <state x="332" y="180" key="Vcs.Push.Dialog.v2" timestamp="1608188247491">
+      <screen x="36" y="25" width="1404" height="875" />
+    </state>
+    <state x="331" y="180" key="Vcs.Push.Dialog.v2/35.25.1405.875@35.25.1405.875" timestamp="1608174449891" />
+    <state x="332" y="180" key="Vcs.Push.Dialog.v2/36.25.1404.875@36.25.1404.875" timestamp="1608188247491" />
+  </component>
+  <component name="com.intellij.coverage.CoverageDataManagerImpl">
+    <SUITE FILE_PATH="coverage/CSC645_P2P_Project$peer.coverage" NAME="peer Coverage Results" MODIFIED="1608186237763" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
   </component>
 </project>
