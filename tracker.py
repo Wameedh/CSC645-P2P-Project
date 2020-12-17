@@ -25,30 +25,29 @@ class Tracker:
         self._server = server
         self._torrent = torrent
         self._is_announce = announce
-        self.DHT_PORT = server.getIP()['port']
-        self.udp_socket = socket.socket(socket.AF_INET, socket.SOCK_DGRAM )
+        self.DHT_PORT = server.getID()['port']
+        self.udp_socket = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+        self.udp_socket.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEPORT, 1)
         self.udp_socket.setsockopt(socket.SOL_SOCKET, socket.SO_BROADCAST, 1)
-        self.udp_socket.bind((self._server.host, self.DHT_PORT))
+        self.udp_socket.bind(('', self.DHT_PORT))
         # self._clienthandler = server.clienthandlers[0]
         # will story a list of dictionaries representing entries in the routing table
         # dictionaries stored here are in the following form
         # {'nodeID': '<the node id is a SHA1 hash of the ip_address and port of the server node and a random uuid>',
         #  'ip_address': '<the ip address of the node>', 'port': '<the port number of the node',
         #  'info_hash': '<the info hash from the torrent file>', last_changed': 'timestamp'}
-        id = self.server.getID()
+        id = self._server.getID()
         nodeID = bencodepy.encode(id)
         self.nodeID = self._torrent._hash_torrent_info(nodeID)
-        self._routing_table = [
-            [["127.0.0.1", 12000], ["127.0.0.1", 12001], ["127.0.0.1", 12003], ["127.0.0.1", 12004]]
-        ]
+        self._routing_table = [[self._server.host, self.DHT_PORT]]
         self.tokens = ["token"]
 
     def broadcast(self, message, self_broadcast_enabled=False):
 
-        if (self.DHT_PORT == 12000):
-            port = 12001
-        if (self.DHT_PORT == 12001):
-            port = 12000
+        if (self.DHT_PORT == 5000):
+            port = 5001
+        if (self.DHT_PORT == 4999):
+            port = 5000
 
         try:
             encoded_message = self.encode(message)
@@ -70,12 +69,16 @@ class Tracker:
             print("\nListening at DHT port: ", self.DHT_PORT)
             while True:
                 raw_data, sender_ip_and_port = self.udp_socket.recvfrom(4096)
+                print("STEP-1")
                 if raw_data:
                     data = self.decode(raw_data)
                     ip_sender = sender_ip_and_port[0]
                     port_sender = sender_ip_and_port[1]
+                    print("STEP-2")
+                    self._routing_table.append([ip_sender, port_sender])
+                    print("STEP-3")
                     print("\ndata received by sender {}:{}".format(ip_sender, port_sender))
-                    self.process_query(data)
+                    #self.process_query(data)
 
         except:
             print("\nError listening at DHT port")
